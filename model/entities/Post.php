@@ -6,7 +6,7 @@
     final class Post extends Entity{
 
         private $id;
-        private $post;
+        private $textPost;
         private $topic;
         private $dateCreationMessage;
         private $user;
@@ -39,9 +39,9 @@
         /**
          * Get the value of post
          */ 
-        public function getPost()
+        public function getTextPost()
         {
-                return $this->post;
+                return $this->textPost;
         }
 
         /**
@@ -49,9 +49,9 @@
          *
          * @return  self
          */ 
-        public function setPost($post)
+        public function setTextPost($textPost)
         {
-                $this->post = $post;
+                $this->textPost = $textPost;
 
                 return $this;
         }

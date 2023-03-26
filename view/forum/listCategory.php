@@ -12,7 +12,7 @@ foreach($listcategory as $category ){
     ?>
     <ul>
         <li>
-            <a href="">
+            <a href="index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>">
             <?= $category->getNameCategory() ?>
             </a>
         </li>
