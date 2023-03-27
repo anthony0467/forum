@@ -15,7 +15,7 @@
             parent::connect();
         }
 
-        public function findTopicsByCategory($id) 
+        public function findTopicsByCategory($id) // topic par catégorie
         {
             $sql = "SELECT * 
                     FROM ".$this->tableName." t
@@ -30,7 +30,17 @@
         }
 
        
-    
+         //Ajouter un nouveau topic
+
+         public function addTopic($id){
+            $sql="INSERT INTO topic (title)
+            VALUES (:title)";
+            
+            return $this-> getMultipleResults(
+                DAO::select($sql,['id'=>$id],true),
+                $this->className
+            );
+        }
 
 
     }

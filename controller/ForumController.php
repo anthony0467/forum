@@ -5,8 +5,9 @@
     use App\Session;
     use App\AbstractController;
     use App\ControllerInterface;
+use Model\Entities\Category;
 use Model\Entities\Topic;
-use Model\Managers\TopicManager;
+    use Model\Managers\TopicManager;
     use Model\Managers\CategoryManager;
     use Model\Managers\PostManager;
     
@@ -16,11 +17,13 @@ use Model\Managers\TopicManager;
           
 
            $topicManager = new TopicManager();
-           
+           $categoryManager = new CategoryManager();
+          
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
-                    "topics" => $topicManager->findAll(["dateCreationTopic", "DESC"])
+                    "topics" => $topicManager->findAll(["dateCreationTopic", "DESC"]),
+                    "category" => $categoryManager->findAll()
                 ]
             ];
 
@@ -64,33 +67,88 @@ use Model\Managers\TopicManager;
         public function listTopicsByCategory($id){
             
             $TopicManager = new TopicManager();
-            
+            $categoryManager = new CategoryManager();
             
             return [
                 "view" => VIEW_DIR."forum/listTopicsByCategory.php",
                 "data" => [
-                    "topics" => $TopicManager->findTopicsByCategory($id)
+                    "topics" => $TopicManager->findTopicsByCategory($id),
+                    "category" => $categoryManager->findOneById($id)
                 ]
             ];
 
         }
 
 
+        public function addTopic($id){
+            $topicManager = new TopicManager();
+            $postManager = new PostManager();
+           
+            if(isset($_POST['submit'])) {
+                
+             
+                 
+                     $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                     $text = filter_input(INPUT_POST,"textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                     $user = 1;
+                     
+                     if($text && $user && $title){ // verification des champs
+                        $last_id =  $topicManager->add(["category_id" =>$id, "user_id" => $user, "title" => $title]);
+                         $postManager->add(["topic_id" => $last_id, "textPost" => $text, "user_id" => $user ]);
+                         $this->redirectTo('forum', 'listTopicsByCategory', $id); // redirection vers la page concerné
+                     }
+                     
+                
+            }
+        }
+
+        public function addTopicGeneral($id){
+            $topicManager = new TopicManager();
+            $postManager = new PostManager();
+            $categoryManager = new CategoryManager();
+           
+            if(isset($_POST['submit'])) {
+               
+             
+                 if(isset($_POST['textPost']) && (!empty($_POST['textPost']))){ // filtrer les champs
+                     $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                     $text = filter_input(INPUT_POST,"textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                     $selected = filter_input(INPUT_POST,"category_id", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+                     $user = 1;
+                     
+                     if($text && $user && $title){ // verification des champs
+                        $last_id =  $topicManager->add(["category_id" =>$selected, "user_id" => $user, "title" => $title]);
+                         $postManager->add(["topic_id" => $last_id, "textPost" => $text, "user_id" => $user ]);
+                         $this->redirectTo('forum', 'listTopics'); // redirection vers la page concerné
+                     }
+
+                   
+                 }
+
+
+                
+            }
+        }
+
         public function addPost($id){
+         
             $postManager = new PostManager();
             
            
             
                if(isset($_POST['submit'])) {
+                   
                 
                     if(isset($_POST['textPost']) && (!empty($_POST['textPost']))){
                         $text = filter_input(INPUT_POST,"textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                        var_dump($text);
+                       
+                        
                         $user = 1;
                         
                         if($text && $user){
                             $postManager->add(["topic_id" =>$id, "textPost" => $text, "user_id" => $user]);
-                            $this->redirectTo('post', $postManager);
+                            $this->redirectTo('forum', 'listPosts', $id);
                         }
                         
                     }

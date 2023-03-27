@@ -36,11 +36,12 @@
         public function addPost($id){
             $sql="INSERT INTO post (textPost)
             VALUES (:post)";
-            
             return $this-> getMultipleResults(
                 DAO::select($sql,['id'=>$id],true),
                 $this->className
             );
+
+            
         }
 
     }
