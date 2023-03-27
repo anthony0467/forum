@@ -7,8 +7,10 @@
 
 
 
-<form action="" method="POST">
-    <input type="email" name="email" placeholder="email">
+<form action="index.php?ctrl=security&action=addUser" method="POST">
+    <input type="email" name="email" placeholder="Email">
     <input type="text" name="pseudo" id="pseudo" placeholder="Identifiant">
-    <input type="password" name="password">
+    <input type="password" name="password" placeholder="Mot de passe">
+    <input type="password" name="verifPassword" placeholder="Entrer à nouveau le mot de passe">
+    <input type="submit" name="submit" value="Valider">
 </form>
