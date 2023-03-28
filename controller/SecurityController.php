@@ -5,11 +5,6 @@ namespace Controller;
 use App\Session;
 use App\AbstractController;
 use App\ControllerInterface;
-use Model\Entities\Category;
-use Model\Entities\Topic;
-use Model\Managers\TopicManager;
-use Model\Managers\CategoryManager;
-use Model\Managers\PostManager;
 use Model\Managers\UserManager;
 
 class SecurityController extends AbstractController implements ControllerInterface
@@ -46,16 +41,18 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     //si le mot de passe correspond et fait plus ou égal à 8 cara
                     if (($password == $verifPassword) and strlen($password) >= 8) {
                         $userManager->add(['email'=> $email, 'pseudo'=> $pseudo, 'password' => $password]);
-                       // $this->redirectTo('security', 'register'); // redirection vers la page concerné
+                        $_SESSION['success_message'] = "Votre compte a été créé avec succès.";
                     } else {
-                        echo "Les mots de passe ne correspondent pas ou font moins de 8 caractères.";
+                        $_SESSION['error_message'] =  "Les mots de passe ne correspondent pas ou font moins de 8 caractères.";
+                        
                     }
                 } else {
-                    echo "Pseudo déjà utilisé.";
+                    $_SESSION['error_message'] =  "Pseudo déjà utilisé.";
                 }
             } else {
-                echo "Email déjà utilisé.";
+                $_SESSION['error_message'] =  "Email déjà utilisé.";
             }
+            $this->redirectTo('security', 'register'); // redirection vers la page concerné
         }
     }
 
