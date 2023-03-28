@@ -10,7 +10,7 @@
         private $user;
         private $category;
         private $dateCreationTopic;
-        private $closed;
+        private $locked;
         
 
         public function __construct($data){         
@@ -110,9 +110,9 @@
         /**
          * Get the value of closed
          */ 
-        public function getClosed()
+        public function getLocked()
         {
-                return $this->closed;
+                return $this->locked;
         }
 
         /**
@@ -120,9 +120,9 @@
          *
          * @return  self
          */ 
-        public function setClosed($closed)
+        public function setLocked($locked)
         {
-                $this->closed = $closed;
+                $this->locked = $locked;
 
                 return $this;
         }

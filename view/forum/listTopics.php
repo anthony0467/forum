@@ -6,6 +6,9 @@ $ListCategory = $result["data"]['category'];
 
 <h1>liste topics</h1>
 
+
+<?php if (isset($_SESSION['user'])){  ?>
+
 <form action="index.php?ctrl=forum&action=addTopicGeneral" method="POST">
     <label for="">Titre : </label>
     <input type="text" name="title">
@@ -20,6 +23,8 @@ $ListCategory = $result["data"]['category'];
     <textarea name="textPost" id="textPost" cols="50" rows="10" placeholder="Message"></textarea>
     <input name="submit" type="submit" value="Envoyer">
 </form>
+
+<?php } ?>
 
 <ul>
 

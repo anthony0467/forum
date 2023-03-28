@@ -86,16 +86,24 @@ use Model\Entities\Topic;
            
             if(isset($_POST['submit'])) {
                 
-             
+
                  
                      $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                      $text = filter_input(INPUT_POST,"textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                     $user = 1;
                      
-                     if($text && $user && $title){ // verification des champs
-                        $last_id =  $topicManager->add(["category_id" =>$id, "user_id" => $user, "title" => $title]);
-                         $postManager->add(["topic_id" => $last_id, "textPost" => $text, "user_id" => $user ]);
-                         $this->redirectTo('forum', 'listTopicsByCategory', $id); // redirection vers la page concerné
+                    if(isset($_SESSION['user'])){
+                        $user = $_SESSION['user']->getId();
+
+                        if($text && $user && $title){ // verification des champs
+                            $last_id =  $topicManager->add(["category_id" =>$id, "user_id" => $user, "title" => $title]);
+                             $postManager->add(["topic_id" => $last_id, "textPost" => $text, "user_id" => $user ]);
+                             $_SESSION['sucess_message'] =  "Topic envoyé avec succes.";
+                             $this->redirectTo('forum', 'listTopicsByCategory', $id); // redirection vers la page concerné
+                         }
+                    }
+                     else{
+                         $_SESSION['error_message'] =  "Vous devez être connecté pour faire ça.";
+                        $this->redirectTo('forum', 'listTopicsByCategory', $id); 
                      }
                      
                 
@@ -106,7 +114,9 @@ use Model\Entities\Topic;
             $topicManager = new TopicManager();
             $postManager = new PostManager();
             $categoryManager = new CategoryManager();
-           
+
+            
+    
             if(isset($_POST['submit'])) {
                
              
@@ -115,7 +125,12 @@ use Model\Entities\Topic;
                      $text = filter_input(INPUT_POST,"textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                      $selected = filter_input(INPUT_POST,"category_id", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
-                     $user = 1;
+                     $user = $_SESSION['user']->getId();
+
+                     if (!$user) {
+                        echo "Vous devez être connecté pour ajouter un sujet";
+                        return; // on arrête la fonction si l'utilisateur n'est pas connecté
+                    }
                      
                      if($text && $user && $title){ // verification des champs
                         $last_id =  $topicManager->add(["category_id" =>$selected, "user_id" => $user, "title" => $title]);
@@ -144,7 +159,7 @@ use Model\Entities\Topic;
                         $text = filter_input(INPUT_POST,"textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                        
                         
-                        $user = 1;
+                        $user = $_SESSION['user']->getId();
                         
                         if($text && $user){
                             $postManager->add(["topic_id" =>$id, "textPost" => $text, "user_id" => $user]);

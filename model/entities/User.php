@@ -8,6 +8,7 @@
         private $id;
         private $email;
         private $pseudo;
+        private $role;
         private $dateCreationMember;
         private $password;
     
@@ -75,6 +76,38 @@
 
                 return $this;
         }
+
+        public function __toString()
+        {
+                return $this->pseudo;
+        }
+
+
+         /**
+         * Get the value of user
+         */ 
+        public function getRole()
+        {
+                return $this->role;
+        }
+
+        /**
+         * Set the value of user
+         *
+         * @return  self
+         */ 
+        public function setRole($role)
+        {
+                $this->role = $role;
+
+                return $this;
+        }
+
+        public function hasRole($role) // verifier si le role correspond 
+        {
+        return $this->role === $role;
+        }
+       
 
         public function getDateCreationMember(){
             $formattedDate = $this->dateCreationMember->format("d/m/Y, H:i:s");
