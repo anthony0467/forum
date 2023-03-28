@@ -126,4 +126,11 @@
 
                 return $this;
         }
+
+        public function lockedTopic()
+        {
+        $this->locked = 1;
+        }
+
+
     }

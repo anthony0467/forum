@@ -110,6 +110,15 @@ use Model\Entities\Topic;
             }
         }
 
+
+        public function topicLocked($id){
+            $topicManager = new TopicManager();
+            $topicManager->lock($id);
+            $this->redirectTo('forum', 'listPosts', $id); 
+        }
+
+
+        
         public function addTopicGeneral($id){
             $topicManager = new TopicManager();
             $postManager = new PostManager();

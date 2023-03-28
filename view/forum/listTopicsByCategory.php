@@ -3,9 +3,6 @@
 $topics = $result["data"]['topics'];
 $listCategory = $result["data"]['category'];
 
-if($topics == null){
- echo "Topic vide";
-}
 ?>
 
 <h1>Liste topic</h1>
@@ -26,8 +23,15 @@ if($topics == null){
 
 
 
+
+
+
 <ul>
 <?php
+
+if($topics == null){
+    echo "Topic vide";
+   }else{
 foreach($topics as $topic ){
 
     ?>
@@ -40,10 +44,15 @@ foreach($topics as $topic ){
             <p><?= $topic->getDateCreationTopic() ?></p>
             <p><?= $topic->getUser()->getPseudo() ?></p></a>
             
+            
+                <a href="index.php?ctrl=forum&action=topicLocked&id=<?= $topic->getId() ?>">Verrouiller le topic</a>
+           
+            
+            
         </li> 
         
     
     <?php
-} ?>
+} }?>
 
 </ul>

@@ -42,5 +42,16 @@
             );
         }
 
+        // verouiller topic
+
+        
+        public function lock($id){
+            $sql = "UPDATE " . $this->tableName . "
+                    SET locked = 1
+                    WHERE id_topic = :id";
+                    
+            DAO::update($sql, ['id' => $id]);
+        }
+        
 
     }
