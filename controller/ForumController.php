@@ -1,5 +1,5 @@
 <?php
-
+// https://www.figma.com/file/ojDy3u6CatQreracxbVf7o/Maquette-forum?node-id=0%3A1&t=D6ann6Ot0lRVcj5W-1
 namespace Controller;
 
 use App\Session;
@@ -108,10 +108,20 @@ class ForumController extends AbstractController implements ControllerInterface
         }
     }
 
-    public function topicDelete($id){
+    public function topicDelete($id){ // supprimer un topic par categorie
         $topicManager = new TopicManager();
+        $topic = $topicManager->findOneById($id);
+        $categoryId = $topic->getCategory()->getId();
         $topicManager->deleteTopic($id);
-        $this->redirectTo('forum', 'listTopicsByCategory', $id);
+        $this->redirectTo('forum', 'listTopicsByCategory', $categoryId);
+    }
+
+    public function topicDeleteGeneral($id){ // supprimer un topic sur la liste entiere
+        $topicManager = new TopicManager();
+        $topic = $topicManager->findOneById($id);
+        $categoryId = $topic->getCategory()->getId();
+        $topicManager->deleteTopic($id);
+        $this->redirectTo('forum', 'listTopics');
     }
 
 
