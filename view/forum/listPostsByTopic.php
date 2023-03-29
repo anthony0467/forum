@@ -20,7 +20,11 @@ if($topics->getLocked() == 1){
 </form>
 
 
- <?php }  ?>
+ <?php } 
+ if($posts == null){
+    echo "Aucun message dans le topic";
+   }else{
+  ?>
 
 <ul>
 <?php
@@ -49,7 +53,8 @@ foreach($posts as $post ){
         
     
     <?php
-} ?>
+}  ?>
 
 </ul>
 
+<?php } ?>
