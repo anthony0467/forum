@@ -36,6 +36,13 @@ foreach($posts as $post ){
                     <p><?= $post->getDateCreationMessage() ?></p>
                 </div>
                 <p><?=$post->getTextPost() ?></p>
+
+                <?php // afficher si admin ou auteur
+                if(App\Session::isAdmin() || App\Session::getUser() == $post->getUser()->getPseudo()){ 
+                    ?>
+                <a href="index.php?ctrl=forum&action=postDelete&id=<?= $post->getId() ?>">Supprimer</a>
+
+                <?php } ?>
             </li>
            
                

@@ -46,9 +46,14 @@ foreach($topics as $topic ){
             
                 <?php if(App\Session::isAdmin()){ ?>
                 <a href="index.php?ctrl=forum&action=topicLocked&id=<?= $topic->getId() ?>">Verrouiller le topic</a>
+                <?php } ?>
+                
+                <?php // afficher si admin ou auteur
+                if(App\Session::isAdmin() || App\Session::getUser() == $post->getUser()->getPseudo()){ 
+                    ?>
+                <a href="index.php?ctrl=forum&action=topicDelete&id=<?= $topic->getId() ?>">Supprimer</a>
 
                 <?php } ?>
-            
             
         </li> 
         

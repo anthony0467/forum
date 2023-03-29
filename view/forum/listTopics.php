@@ -47,6 +47,8 @@ $ListCategory = $result["data"]['category'];
 
                 <?php } ?>
 
+                <a href="">Supprimer</a>
+
         </li>
 
     <?php

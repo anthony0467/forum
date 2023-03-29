@@ -20,7 +20,7 @@
             $sql = "SELECT * 
                     FROM ".$this->tableName." t
                     WHERE t.category_id = :id
-                    ORDER BY dateCreationTopic";
+                    ORDER BY dateCreationTopic DESC";
 
 
             return $this->getMultipleResults(
@@ -52,6 +52,15 @@
                     
             DAO::update($sql, ['id' => $id]);
         }
-        
+
+
+        public function deleteTopic($id){
+            $sql = "DELETE FROM ".$this->tableName."
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::delete($sql, ['id' => $id]); 
+        }
+
 
     }
