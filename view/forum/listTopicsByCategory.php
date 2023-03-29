@@ -44,9 +44,10 @@ foreach($topics as $topic ){
             <p><?= $topic->getDateCreationTopic() ?></p>
             <p><?= $topic->getUser()->getPseudo() ?></p></a>
             
-            
+                <?php if(App\Session::isAdmin()){ ?>
                 <a href="index.php?ctrl=forum&action=topicLocked&id=<?= $topic->getId() ?>">Verrouiller le topic</a>
-           
+
+                <?php } ?>
             
             
         </li> 
