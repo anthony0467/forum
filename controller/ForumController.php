@@ -109,28 +109,40 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
     public function topicDelete($id){ // supprimer un topic par categorie
+        if(isset($_SESSION['user'])){ // si la session existe
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
         $categoryId = $topic->getCategory()->getId();
         $topicManager->deleteTopic($id);
         $this->redirectTo('forum', 'listTopicsByCategory', $categoryId);
+        }else{
+            $this->redirectTo('forum', 'listTopicsByCategory');
+        }
     }
 
     public function topicDeleteGeneral($id){ // supprimer un topic sur la liste entiere
+        if(isset($_SESSION['user'])){
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
         $categoryId = $topic->getCategory()->getId();
         $topicManager->deleteTopic($id);
         $this->redirectTo('forum', 'listTopics');
+        }else{
+            $this->redirectTo('forum', 'listTopics');
+        }
     }
 
 
     // verouiller le topic
     public function topicLocked($id)
     {
+        if(isset($_SESSION['user'])){
         $topicManager = new TopicManager();
         $topicManager->lock($id);
         $this->redirectTo('forum', 'listPosts', $id);
+        }else{
+            $this->redirectTo('forum', 'listPosts', $id);
+        }
     }
 
 
@@ -170,11 +182,15 @@ class ForumController extends AbstractController implements ControllerInterface
 
     // supprimer un post
     public function postDelete($id){
+        if(isset($_SESSION['user'])){
         $postManager = new PostManager();
         $post = $postManager->findOneById($id);
         $topicId = $post->getTopic()->getId();
         $postManager->deletePost($id);
         $this->redirectTo('forum', 'listPosts', $topicId);
+        }else{
+            $this->redirectTo('forum', 'listCategory');
+        }
     }
 
     public function addPost($id)

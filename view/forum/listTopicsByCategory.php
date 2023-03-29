@@ -49,7 +49,7 @@ foreach($topics as $topic ){
                 <?php } ?>
                 
                 <?php // afficher si admin ou auteur
-                if(App\Session::isAdmin() || App\Session::getUser() == $post->getUser()->getPseudo()){ 
+                if(App\Session::isAdmin() || App\Session::getUser() == $topic->getUser()){ 
                     ?>
                 <a href="index.php?ctrl=forum&action=topicDelete&id=<?= $topic->getId() ?>">Supprimer</a>
 

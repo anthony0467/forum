@@ -42,8 +42,12 @@ $ListCategory = $result["data"]['category'];
                 <p><?= $topic->getUser()->getPseudo() ?></p>
             </a>
 
+            <?php if(App\Session::isAdmin()){ ?>
+                <a href="index.php?ctrl=forum&action=topicLocked&id=<?= $topic->getId() ?>">Verrouiller le topic</a>
+                <?php } ?>
+
             <?php // afficher si admin ou auteur
-                if(App\Session::isAdmin() || App\Session::getUser() == $post->getUser()->getPseudo()){ 
+                if(App\Session::isAdmin() || App\Session::getUser() == $topic->getUser()){ 
                     ?>
                 <a href="index.php?ctrl=forum&action=topicDeleteGeneral&id=<?= $topic->getId() ?>">Supprimer</a>
 

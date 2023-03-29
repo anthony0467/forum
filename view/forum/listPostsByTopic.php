@@ -38,11 +38,11 @@ foreach($posts as $post ){
                 <p><?=$post->getTextPost() ?></p>
 
                 <?php // afficher si admin ou auteur
-                if(App\Session::isAdmin() || App\Session::getUser() == $post->getUser()->getPseudo()){ 
+                if(App\Session::isAdmin() || App\Session::getUser() == $post->getUser()){ 
                     ?>
                 <a href="index.php?ctrl=forum&action=postDelete&id=<?= $post->getId() ?>">Supprimer</a>
 
-                <?php } ?>
+                <?php } else{ echo '';} ?>
             </li>
            
                
