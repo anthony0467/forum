@@ -68,9 +68,10 @@ class SecurityController extends AbstractController implements ControllerInterfa
             //var_dump($_POST);die;
             $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $user = $userManager->findOneByEmail($email)->getStatus();
+           
+           
 
-            if( $userManager->findOneByEmail($email) != null && $user ==1){      
+            if( $userManager->findOneByEmail($email) != null &&  $userManager->findOneByEmail($email)->getStatus() ==1){    
                 $_SESSION['error']="Compte banni.";
                 $this->redirectTo('security', 'formLogin');
             }
