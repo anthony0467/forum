@@ -185,12 +185,28 @@ class ForumController extends AbstractController implements ControllerInterface
         if(isset($_SESSION['user'])){
         $postManager = new PostManager();
         $post = $postManager->findOneById($id);
+        // nombre de poste
+        $count = $postManager->deletePost($id);
+        //récupéré l'id du topic
         $topicId = $post->getTopic()->getId();
-        $postManager->deletePost($id);
-        $this->redirectTo('forum', 'listPosts', $topicId);
+        
+       
+      
+
+        $nbPoste = intVal($count);
+        var_dump($nbPoste);
+        if($nbPoste > 0){
+            $this->redirectTo('forum', 'listPosts', $topicId);
         }else{
             $this->redirectTo('forum', 'listCategory');
         }
+        
+        }
+        else{
+            $this->redirectTo('forum', 'listTopics');
+        }
+
+
     }
 
     public function addPost($id)

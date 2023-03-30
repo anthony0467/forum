@@ -61,12 +61,13 @@ class TopicManager extends Manager
 
     public function deleteTopic($id)
     {
-        // Supprimer tous les messages associés au sujet
-        $sql = "DELETE p FROM post p
+        
+            // Supprimer tous les messages associés au sujet
+            $sql = "DELETE p FROM post p
                 INNER JOIN " . $this->tableName . " t ON t.id_" . $this->tableName . " = p.topic_id
                 WHERE t.id_" . $this->tableName . " = :id";
-                DAO::delete($sql, ['id' => $id]);
-
+            DAO::delete($sql, ['id' => $id]);
+        
         // Supprimer le sujet
         $sql = "DELETE FROM " . $this->tableName . " WHERE id_" . $this->tableName . " = :id";
         return DAO::delete($sql, ['id' => $id]);

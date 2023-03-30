@@ -60,37 +60,64 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
 
    
-    public function userLogin(){
+    public function userLogin(){ // se connecter
         $userManager = new UserManager();
+        
 
         if(isset($_POST['submit'])) {
             //var_dump($_POST);die;
             $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $user = $userManager->findOneByEmail($email)->getStatus();
 
+            if( $userManager->findOneByEmail($email) != null && $user ==1){      
+                $_SESSION['error']="Compte banni.";
+                $this->redirectTo('security', 'formLogin');
+            }
+
+
+     
             if($email && $password){
                 //var_dump($password);die;
                 //retrouver le mot de passe de l'utilisateur correspondant au mail
                 $dbPass = $userManager->retrievePassword($email);
                 //var_dump($dbPass);die;
+                
+
                 //Si le mot de passe est retrouvé
                 if($dbPass){
 
                     //recupération du mot de passe
                     $hash = $dbPass->getPassword();
+                   
+                    
                     //var_dump($hash);die;
                     //retrouver l'utilisateur par son email
                     $user = $userManager->findOneByEmail($email);
+                    
                     //comparaison du hash de la base de données et le mot de passe renseigné
                     if(password_verify($password, $hash)){
                         Session::setUser($user);
                         $this->redirectTo('forum', 'listTopics'); // redirection vers la page concerné
                     }
                     
-                    
+                    else{
+                        $_SESSION['error']="Le mot de passe est incorrect.";
+                        
+                    }
+                   
+                  
+                }
+                else{
+                    $_SESSION['error'] =  "L'identifiant est incorrect.";
                 }
                 
             }
+            else{
+                $_SESSION['error'] =  "Le mot de passe est l'identifiant sont incorrect.";
+            }
+            
+            $this->redirectTo('security', 'formLogin');
         }
     }
 
@@ -115,16 +142,16 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     if (($password == $verifPassword) and strlen($password) >= 8) {
                         $pass= password_hash($password, PASSWORD_DEFAULT);
                         $userManager->add(['email'=> $email, 'pseudo'=> $pseudo, 'password' => $pass]);
-                        $_SESSION['success_message'] = "Votre compte a été créé avec succès.";
+                        $_SESSION['success'] = "Votre compte a été créé avec succès.";
                     } else {
-                        $_SESSION['error_message'] =  "Les mots de passe ne correspondent pas ou font moins de 8 caractères.";
+                        $_SESSION['error'] =  "Les mots de passe ne correspondent pas ou font moins de 8 caractères.";
                         
                     }
                 } else {
-                    $_SESSION['error_message'] =  "Pseudo déjà utilisé.";
+                    $_SESSION['error'] =  "Pseudo déjà utilisé.";
                 }
             } else {
-                $_SESSION['error_message'] =  "Email déjà utilisé.";
+                $_SESSION['error'] =  "Email déjà utilisé.";
             }
             $this->redirectTo('security', 'register'); // redirection vers la page concerné
         }
@@ -133,6 +160,20 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
 }
 
-   
+        public function addBan($id){
+
+            if (isset($_POST['submit'])) {
+            
+            $ban = filter_input(INPUT_POST, "statusBan", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $userManager = new UserManager();
+                $userManager->statusBan($id, $ban);
+               
+                $this->redirectTo('security', 'users');
+            
+            $this->redirectTo('security', 'users');
+        }
+
+    }
+
 
 }

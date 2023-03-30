@@ -46,12 +46,32 @@
 
         //effacer un poste
 
-        public function deletePost($id){
+        public function deletePost($id): int
+        {
+
+            $topicId = $this->findOneById($id)->getTopic()->getId();
+          
+
             $sql = "DELETE FROM ".$this->tableName."
                     WHERE id_".$this->tableName." = :id
                     ";
 
-            return DAO::delete($sql, ['id' => $id]); 
+            DAO::delete($sql, ['id' => $id]); 
+            $countPost = "SELECT  COUNT(*) AS nbPoste
+            FROM ".$this->tableName."
+            WHERE topic_id = :id";
+
+            
+          
+
+           $nbPost =  DAO::select($countPost, ['id' => $topicId], false); 
+            if(intVal($nbPost['nbPoste'] == 0)){
+                $topicManager = new TopicManager();
+                $topicManager->deleteTopic($topicId, $nbPost);
+            }
+
+            return $nbPost['nbPoste'];
+
         }
 
        
