@@ -18,7 +18,10 @@ class ForumController extends AbstractController implements ControllerInterface
     public function index()
     {
 
+    }
 
+
+    public function listTopics($id){
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
        
@@ -26,12 +29,11 @@ class ForumController extends AbstractController implements ControllerInterface
         return [
             "view" => VIEW_DIR . "forum/listTopics.php",
             "data" => [
-                "topics" => $topicManager->findAll(["dateCreationTopic", "DESC"]),
+                "topics" => $topicManager->findTopics(),
                 "category" => $categoryManager->findAll()
             ]
         ];
     }
-
 
 
     public function listCategory()

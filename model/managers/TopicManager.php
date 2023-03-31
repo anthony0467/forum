@@ -34,6 +34,21 @@ class TopicManager extends Manager
 
     }
 
+    public function findTopics() // topic par catégorie
+    {
+        $sql = "SELECT t.*, COUNT(p.id_post) as nbPosts 
+        FROM " . $this->tableName . " t
+        LEFT JOIN post p ON t.id_" . $this->tableName . " = p.topic_id
+        GROUP BY t.id_" . $this->tableName . "
+        ORDER BY dateCreationTopic DESC";
+
+        return $this->getMultipleResults(
+            DAO::select($sql, []),
+            $this->className
+        );
+
+    }
+
 
     //Ajouter un nouveau topic
 

@@ -1,0 +1,79 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	font-family: 'Kanit', sans-serif;
+	vertical-align: baseline;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700;900&display=swap'); // font kanit
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+//background color 
+$background-image: url("../img/bg-forum-medium.jpg");
+$bg-color: #000;
+//font color
+$ft-color: #fff;
+
+
+a{
+	color: $ft-color;
+}
+
+body{
+	background-image: $background-image;
+	background-position: center;
+	background-size: cover;
+	backdrop-filter: blur(5px);
+    background-color: $bg-color;
+	color: $ft-color;
+}
+
+nav{
+	background-color: $bg-color;
+}
+
+main{
+	min-height: 90vh;
+
+	display: flex;
+	flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container{
+	background-color: $bg-color;
+}
+
+footer{
+	background-color: $bg-color;
+	padding: 1.5rem;
+}
