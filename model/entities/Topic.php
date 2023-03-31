@@ -11,6 +11,7 @@
         private $category;
         private $dateCreationTopic;
         private $locked;
+        private $nbPosts;
         
 
         public function __construct($data){         
@@ -130,6 +131,26 @@
         public function lockedTopic()
         {
         $this->locked = 1;
+        }
+
+        /**
+         * Get the value of nbPost
+         */ 
+        public function getNbPosts()
+        {
+                return $this->nbPosts;
+        }
+
+        /**
+         * Set the value of nbPost
+         *
+         * @return  self
+         */ 
+        public function setNbPosts($nbPosts)
+        {
+                $this->nbPosts = $nbPosts;
+
+                return $this;
         }
 
 

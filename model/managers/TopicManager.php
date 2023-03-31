@@ -20,16 +20,18 @@ class TopicManager extends Manager
 
     public function findTopicsByCategory($id) // topic par catégorie
     {
-        $sql = "SELECT * 
-                    FROM " . $this->tableName . " t
-                    WHERE t.category_id = :id
-                    ORDER BY dateCreationTopic DESC";
-
+        $sql = "SELECT t.*, COUNT(p.id_post) as nbPosts 
+        FROM " . $this->tableName . " t
+        LEFT JOIN post p ON t.id_" . $this->tableName . " = p.topic_id
+        WHERE t.category_id = :id
+        GROUP BY t.id_" . $this->tableName . "
+        ORDER BY dateCreationTopic DESC";
 
         return $this->getMultipleResults(
             DAO::select($sql, ['id' => $id]),
             $this->className
         );
+
     }
 
 
@@ -58,6 +60,16 @@ class TopicManager extends Manager
         DAO::update($sql, ['id' => $id]);
     }
 
+    // devérouiller topic
+    public function unlock($id)
+    {
+        $sql = "UPDATE " . $this->tableName . "
+                    SET locked = 0
+                    WHERE id_topic = :id";
+
+        DAO::update($sql, ['id' => $id]);
+    }
+
 
     public function deleteTopic($id)
     {
@@ -72,4 +84,19 @@ class TopicManager extends Manager
         $sql = "DELETE FROM " . $this->tableName . " WHERE id_" . $this->tableName . " = :id";
         return DAO::delete($sql, ['id' => $id]);
     }
+
+
+    public function searchTopic($search){
+        $sql = "SELECT *
+                    FROM ".$this->tableName." t
+                    WHERE t.title = :search
+                    ";
+
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ['search' => $search]),
+                $this->className
+            );
+    }
+
 }

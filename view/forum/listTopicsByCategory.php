@@ -7,13 +7,18 @@ $listCategory = $result["data"]['category'];
 
 <h1>Liste topic</h1>
 
+<form action="index.php?ctrl=forum&action=topicSearch" method="POST">
+    <input type="search" name="search" minlength="2" placeholder="Rechercher un topic">
+    <input type="submit" name="submit" value="Rechercher">
+</form>
+
 <?php if (isset($_SESSION['user'])){  ?>
 
     <form action="index.php?ctrl=forum&action=addTopic&id=<?= $listCategory->getId() ?>" method="POST">
     <label for="">Titre : </label>
-    <input type="text" name="title">
+    <input type="text" name="title" minlength="2" required >
         <label for="">Message :</label>
-        <textarea name="textPost" id="textPost" cols="50" rows="10" placeholder="Message"></textarea>
+        <textarea name="textPost" id="textPost" cols="50" rows="10" minlength="2" required placeholder="Message"></textarea>
         <input name="submit" type="submit" value="Envoyer">
     </form>
 
@@ -29,9 +34,7 @@ $listCategory = $result["data"]['category'];
 <ul>
 <?php
 
-if($topics == null){
-    echo "Topic vide";
-   }else{
+if (!empty($topics)) { // en cas de recherche à 0
 foreach($topics as $topic ){
 
     ?>
@@ -43,9 +46,10 @@ foreach($topics as $topic ){
             <p><?= $topic->getCategory()->getNameCategory() ?></p>
             <p><?= $topic->getDateCreationTopic() ?></p>
             <p><?= $topic->getUser()->getPseudo() ?></p></a>
-            
+            <p>Nombre de postes :<?= $topic->getNbPosts() ?></p>
                 <?php if(App\Session::isAdmin()){ ?>
                 <a href="index.php?ctrl=forum&action=topicLocked&id=<?= $topic->getId() ?>">Verrouiller le topic</a>
+                <a href="index.php?ctrl=forum&action=topicUnlocked&id=<?= $topic->getId() ?>">Déverrouiller le topic</a>
                 <?php } ?>
                 
                 <?php // afficher si admin ou auteur
@@ -59,6 +63,6 @@ foreach($topics as $topic ){
         
     
     <?php
-} }?>
+} }else{ echo '<p>Aucun résultat trouvé pour votre recherche</p>'; }?>
 
 </ul>

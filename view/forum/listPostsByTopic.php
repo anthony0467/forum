@@ -7,24 +7,27 @@ $topics = $result["data"]['topics'];
 
 <h1>Posts Topic</h1>
 
+
 <?php 
 
-if($topics->getLocked() == 1){
- echo '<p>Topic verouillé, vous ne pouvez plus envoyer de message.</p>';
-}else if (isset($_SESSION['user'])){ ?>
+if ($topics && !$topics->getLocked()){
+    if(isset($_SESSION['user'])){
+     ?>
+  
 
 <form action="index.php?ctrl=forum&action=addPost&id=<?= $topics->getId() ?>" method="POST">
     <label for="">Message :</label>
-    <textarea name="textPost" id="textPost" cols="50" rows="10" placeholder="Message"></textarea>
+    <textarea name="textPost" id="textPost" cols="50" rows="10" minlength="2" required placeholder="Message"></textarea>
     <input name="submit" type="submit" value="Envoyer">
 </form>
+<?php } ?>
+<h2>Titre topic : <?= $topics->getTitle() ?></h2>
 
-
- <?php } 
+ <?php 
  if($posts == null){
     echo "Aucun message dans le topic";
-   }else{
-  ?>
+   
+ }?>
 
 <ul>
 <?php
@@ -40,7 +43,14 @@ foreach($posts as $post ){
                     <p><?= $post->getDateCreationMessage() ?></p>
                 </div>
                 <p><?=$post->getTextPost() ?></p>
-
+                <p><a href="index.php?ctrl=forum&action=postLike&id=<?= $post->getId() ?>">J'aime <?= $post->getLikePost() ?></a>
+                <?php
+                if(App\Session::getUser() != null){
+                    $userId = $_SESSION['user']->getId();
+                 if (in_array($post->getId(), $_SESSION['liked_posts'][$userId])) { ?>
+                <i class="fa fa-thumbs-up"></i>
+                <?php } }  ?>
+                </p>
                 <?php // afficher si admin ou auteur
                 if(App\Session::isAdmin() || App\Session::getUser() == $post->getUser()){ 
                     ?>
@@ -57,4 +67,6 @@ foreach($posts as $post ){
 
 </ul>
 
-<?php } ?>
+<?php }else{
+    echo "<p>Topic vérouillé</p>";
+} ?>

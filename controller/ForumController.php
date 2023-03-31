@@ -21,6 +21,7 @@ class ForumController extends AbstractController implements ControllerInterface
 
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
+       
 
         return [
             "view" => VIEW_DIR . "forum/listTopics.php",
@@ -50,6 +51,9 @@ class ForumController extends AbstractController implements ControllerInterface
     {
         $postManager = new PostManager();
         $topicManager = new TopicManager();
+
+        
+
         if ($id) {
             return [
                 "view" => VIEW_DIR . "forum/listPostsByTopic.php",
@@ -69,7 +73,8 @@ class ForumController extends AbstractController implements ControllerInterface
 
         $TopicManager = new TopicManager();
         $categoryManager = new CategoryManager();
-
+       
+        
         return [
             "view" => VIEW_DIR . "forum/listTopicsByCategory.php",
             "data" => [
@@ -133,6 +138,33 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
 
+
+    public function topicSearch(){
+        $topicManager= new TopicManager();
+        $categoryManager = new CategoryManager();
+        if (isset($_POST['submit'])) {
+                
+
+            if (isset($_POST['search']) && (!empty($_POST['search']))) { // filtrer les champs
+                $search = filter_input(INPUT_POST, "search", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                if($search) {
+                    return [
+                        "view" => VIEW_DIR."forum/listTopics.php",
+                        "data" => [
+                            "topics" => $topicManager->searchTopic($search),
+                            "category" => $categoryManager->findAll()
+                        ]
+                    ];
+                }
+        
+            }
+            else{
+                $_SESSION['error']="Erreur de saisie.";
+                $this->redirectTo('forum', 'listTopics');
+            }
+        }
+    }
     // verouiller le topic
     public function topicLocked($id)
     {
@@ -145,6 +177,54 @@ class ForumController extends AbstractController implements ControllerInterface
         }
     }
 
+    // Déverouiller le topic
+    public function topicUnlocked($id)
+    {
+        if(isset($_SESSION['user'])){
+        $topicManager = new TopicManager();
+        $topicManager->unlock($id);
+        $this->redirectTo('forum', 'listPosts', $id);
+        }else{
+            $this->redirectTo('forum', 'listPosts', $id);
+        }
+    }
+
+    // like post 
+    public function postLike($id)
+{
+    $postManager = new PostManager();
+    $post = $postManager->findOneById($id);
+    $topicId = $post->getTopic()->getId();
+
+    // Vérifier si l'utilisateur est connecté
+    if(isset($_SESSION['user'])){
+
+        // Vérifier si l'utilisateur a déjà liké ce post
+        $userId = $_SESSION['user']->getId();
+        if(isset($_SESSION['liked_posts'][$userId]) && in_array($id, $_SESSION['liked_posts'][$userId])){
+            $_SESSION['error']="Vous avez déjà mis un j'aime pour ce post.";
+        }else{
+            $postManager->likePost($id);
+
+            // Ajouter le post liké à la session de l'utilisateur
+            if(isset($_SESSION['liked_posts'][$userId])){
+                $_SESSION['liked_posts'][$userId][] = $id;
+            }else{
+                $_SESSION['liked_posts'][$userId] = array($id);
+            }
+        }
+
+        $this->redirectTo('forum', 'listPosts', $topicId);
+    }else{
+        $_SESSION['error']="Connectez-vous pour mettre un j'aime.";
+        $this->redirectTo('forum', 'listPosts', $topicId);
+    }
+}
+
+    
+
+
+
 
     // topic toutes liste confondu
     public function addTopicGeneral($id)
@@ -156,16 +236,16 @@ class ForumController extends AbstractController implements ControllerInterface
 
 
         if (isset($_POST['submit'])) {
-
+                
 
             if (isset($_POST['textPost']) && (!empty($_POST['textPost']))) { // filtrer les champs
                 $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $selected = filter_input(INPUT_POST, "category_id", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                $user = $_SESSION['user']->getId();
+                $user = $_SESSION['user']->getId(); // récupéré l'id de l'utilisateur
 
-                if (!$user) {
+                if (!$user) { // si pas co
                     echo "Vous devez être connecté pour ajouter un sujet";
                     return; // on arrête la fonction si l'utilisateur n'est pas connecté
                 }
@@ -177,6 +257,23 @@ class ForumController extends AbstractController implements ControllerInterface
                 }
             }
         }
+    }
+
+    public function postCount($id){
+            $postManager = new PostManager();
+            $topicManager = new TopicManager();
+            $topicId = $topicManager->findOneById($id)->getPost()->getId();
+            $count = $postManager->countPost($topicId);
+            
+            
+    return [
+        "view" => VIEW_DIR . "forum/listTopics.php",
+        "data" => [
+            "count" => $count
+        ]
+    ];
+           
+            
     }
 
 

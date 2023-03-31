@@ -10,6 +10,7 @@
         private $topic;
         private $dateCreationMessage;
         private $user;
+        private $likePost;
     
 
         public function __construct($data){         
@@ -104,6 +105,27 @@
         public function setUser($user)
         {
                 $this->user = $user;
+
+                return $this;
+        }
+
+
+        /**
+         * Get the value of likePost
+         */ 
+        public function getLikePost()
+        {
+                return $this->likePost;
+        }
+
+        /**
+         * Set the value of likePost
+         *
+         * @return  self
+         */ 
+        public function setLikePost($likePost)
+        {
+                $this->likePost = $likePost;
 
                 return $this;
         }

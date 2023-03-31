@@ -31,7 +31,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
     public function userLogout(){ // se deconnecter
     // Détruire la session
-    session_destroy();
+    unset($_SESSION['user']);
 
     // Rediriger vers la page de connexion
     $this->redirectTo('security', 'formLogin'); // redirection vers la page concerné
@@ -45,7 +45,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             ];
     }
 
-
+    // page users
     public function users(){
         $userManager = new UserManager();
             
@@ -70,7 +70,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
            
            
-
+            // si le resultat est different de null tu verifie le status et si il est égale à 1 banni 
             if( $userManager->findOneByEmail($email) != null &&  $userManager->findOneByEmail($email)->getStatus() ==1){    
                 $_SESSION['error']="Compte banni.";
                 $this->redirectTo('security', 'formLogin');

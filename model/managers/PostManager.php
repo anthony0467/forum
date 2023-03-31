@@ -74,6 +74,24 @@
 
         }
 
+
+        // like post
+            public function likePost($id){
+                $sql = "UPDATE " . $this->tableName . "
+                    SET likePost = likePost + 1
+                    WHERE id_post = :id";
+
+                DAO::update($sql, ['id' => $id]);
+            }
+        
+            // compter le nb de poste
+            public function countPost($id){
+                $countPost = "SELECT  COUNT(*) AS nbPoste
+                FROM ".$this->tableName."
+                WHERE topic_id = :id";
+
+                DAO::select($countPost, ['id' => $id]); 
+            }
        
 
     }
