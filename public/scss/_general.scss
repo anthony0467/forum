@@ -40,10 +40,37 @@ $bg-color: #000;
 //font color
 $ft-color: #fff;
 
+//hover font
+$hover-font: #E85706;
+
+h1,h2,h3{
+	font-weight: bold;
+}
+
+h1{
+	font-size: 30px;
+}
+
+h2{
+	font-size: 25px;
+}
+
+
+h3{
+	font-size: 20px;
+}
 
 a{
 	color: $ft-color;
+	text-decoration: none;
+	transition: .35s;
 }
+
+ a:hover{
+	color: $hover-font;
+}
+
+
 
 body{
 	background-image: $background-image;
@@ -54,13 +81,27 @@ body{
 	color: $ft-color;
 }
 
-nav{
-	background-color: $bg-color;
+// BARRE DE NAVIGATION 
+
+.container-nav{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
+
+#nav-right{
+	background-color: $bg-color;
+	padding: 1rem;
+}
+
+#nav-right a{
+	padding: 0 .5rem;
+}
+
+
 
 main{
 	min-height: 90vh;
-
 	display: flex;
 	flex-wrap: wrap;
     flex-direction: column;
@@ -68,9 +109,12 @@ main{
     align-items: center;
 }
 
-
+// conteneur de toute les pages
 .container{
+	border-radius: 10px;
 	background-color: $bg-color;
+	padding: 1.5rem;
+	margin: 2rem 0;
 }
 
 footer{

@@ -18,8 +18,9 @@
             <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
             <header>
                 <nav>
-                    <div id="nav-left">
-                        <a href="index.php">Accueil</a>
+                    <div class="container-nav">
+                        <div id="nav-left">
+                        <a href="index.php">My Forum</a>
                         <?php
                         if(App\Session::isAdmin()){
                             ?>
@@ -34,23 +35,28 @@
                         
                         if(App\Session::getUser()){
                             ?>
-                            <a href="index.php?ctrl=security&action=profile"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
-                            <a href="index.php?ctrl=security&action=userLogout">Déconnexion</a>
+                            
+                            
                             <a href="index.php?ctrl=forum&action=listCategory">Catégories</a>
                             <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
+                            <a href="index.php?ctrl=security&action=profile"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
+                            <a href="index.php?ctrl=security&action=userLogout">Déconnexion</a>
                             <?php
                         }
                         else{
                             ?>
-                            <a href="index.php?ctrl=security&action=formLogin">Connexion</a>
-                            <a href="index.php?ctrl=security&action=register">Inscription</a>
+                            
+                            
                             <a href="index.php?ctrl=forum&action=listCategory">Catégories</a>
                             <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
+                            <a href="index.php?ctrl=security&action=formLogin">Connexion</a>
+                            <a href="index.php?ctrl=security&action=register">Inscription</a>
                         <?php
                         }
                    
                         
                     ?>
+                        </div>
                     </div>
                 </nav>
             </header>
@@ -62,7 +68,7 @@
             </main>
         </div>
         <footer>
-            <p>&copy; 2020 - Forum CDA - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
+            <p>&copy; 2020 - Forum AS - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
         </footer>
     </div>
