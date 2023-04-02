@@ -26,7 +26,7 @@ foreach($users as $user ){
                         <option value="0">Ok</option>
                         <option value="1">Bannir</option>
                     </select>
-                    <input type="submit" name="submit" value="Valider">
+                    <input class="btn" type="submit" name="submit" value="Valider">
                 </form>
                 <?php } ?>
 

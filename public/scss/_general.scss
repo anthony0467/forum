@@ -37,11 +37,13 @@ table {
 //background color 
 $background-image: url("../img/bg-forum-medium.jpg");
 $bg-color: #000;
+$form-color: #1E0F37;
 //font color
 $ft-color: #fff;
-
 //hover font
 $hover-font: #E85706;
+
+
 
 h1,h2,h3{
 	font-weight: bold;
@@ -70,7 +72,9 @@ a{
 	color: $hover-font;
 }
 
-
+p,a {
+	font-size: 16px;
+}
 
 body{
 	background-image: $background-image;
@@ -99,7 +103,6 @@ body{
 }
 
 
-
 main{
 	min-height: 90vh;
 	display: flex;
@@ -114,10 +117,52 @@ main{
 	border-radius: 10px;
 	background-color: $bg-color;
 	padding: 1.5rem;
-	margin: 2rem 0;
+	margin: 2rem;
 }
 
 footer{
 	background-color: $bg-color;
 	padding: 1.5rem;
 }
+
+//formulaire
+
+form{
+	background: $form-color;
+	border-radius: 10px;
+    padding: 1rem;
+}
+
+input{
+	padding-left: .5rem;
+}
+
+// boutons
+
+.btn{
+	cursor: pointer;
+	background-color: $bg-color;
+	border-radius: 10px;
+	color: $ft-color;
+	padding: .5rem 1.5rem;
+	transition: .35s;
+}
+
+.btn:hover{
+	background-color: $hover-font;
+}
+
+.none{
+	display: none;
+}
+
+.block{
+	display: block;
+}
+
+@media screen and (min-width: 750px) {
+    .container{
+		min-width: 700px;
+		max-width: 1300px;
+	}
+  }
