@@ -51,15 +51,21 @@ h1,h2,h3{
 
 h1{
 	font-size: 30px;
+	margin: 1rem 0;
+	padding: .5rem;
+	background-color: $form-color;
+	border-radius: 10px;
 }
 
 h2{
 	font-size: 25px;
+	margin: 1rem 0;
 }
 
 
 h3{
 	font-size: 20px;
+	
 }
 
 a{
@@ -80,6 +86,7 @@ body{
 	background-image: $background-image;
 	background-position: center;
 	background-size: cover;
+	background-attachment: fixed;
 	backdrop-filter: blur(5px);
     background-color: $bg-color;
 	color: $ft-color;
@@ -131,9 +138,12 @@ form{
 	background: $form-color;
 	border-radius: 10px;
     padding: 1rem;
+	margin: 1rem 0;
 }
 
-input{
+
+input,select, textarea{
+	border-radius: 10px;
 	padding-left: .5rem;
 }
 
@@ -158,6 +168,10 @@ input{
 
 .block{
 	display: block;
+}
+
+.txt-right{
+	text-align: right;
 }
 
 @media screen and (min-width: 750px) {

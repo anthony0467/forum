@@ -2,7 +2,9 @@
 
 <h1>Profile</h1>
 
-
+<?php // afficher si connecté
+                if(App\Session::getUser()){ 
+                    ?>
 <div>
     <h2>Pseudo : <?= App\Session::getUser()?></h2>
     <p>Email : <?= App\Session::getUser()->getEmail() ?></p>
@@ -11,4 +13,6 @@
 </div>
 
 
-</ul>
+<?php } else{
+    echo "<p>Erreur, vous n'êtes pas conecté. Veuillez vous connecter pour avoir accès à cette page.</p>";
+} ?>

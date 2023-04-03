@@ -5,7 +5,7 @@ $listcategory = $result["data"]['category'];
 ?>
 
 <h1>Liste Catégories</h1>
-<ul>
+<ul class="category-placement">
 <?php
 foreach($listcategory as $category ){
 

@@ -1,0 +1,14 @@
+.category-placement *{
+    font-size: 18px;
+}
+
+
+
+
+@media screen and (min-width: 600px) {
+    .category-placement{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  }

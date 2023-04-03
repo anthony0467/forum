@@ -1,0 +1,16 @@
+.user-placement{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.user-form{
+    background: none;
+}
+
+.user-form ul{
+    border-top: 1px solid grey;
+    margin-top: .5rem;
+}

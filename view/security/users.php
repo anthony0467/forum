@@ -5,37 +5,43 @@ $users = $result["data"]['users'];
 
 <h1>Liste des utilisateurs</h1>
 
-<ul>
+<?php if(App\Session::isAdmin()){ ?>
+
 <?php
 foreach($users as $user ){
 
     ?>
-            <li>
-                <p><?= $user->getPseudo() ?></p>
-                <p>Status : <?php if( $user->getStatus() == 0){
+
+        <form class="user-form"  action="index.php?ctrl=security&action=addBan&id=<?= $user->getId() ?>" method="POST">
+            <ul>
+                <li class="user-placement">
+                    <p><?= $user->getPseudo() ?></p>
+                    <p>Status : <?php if( $user->getStatus() == 0){
                     echo 'ok';
                 }else{
                     echo 'Banni';
                 } ?></p>
-                <p><?= $user->getDateCreationMember() ?></p>
+                    <p><?= $user->getDateCreationMember() ?></p>
 
-                <?php if(App\Session::isAdmin()){ ?>
-                <form  action="index.php?ctrl=security&action=addBan&id=<?= $user->getId() ?>" method="POST">
+                </li>
+            </ul>
+            
+                
                     <select name="statusBan" id="statusBan">
                         <option disabled selected>Choisir</option>
                         <option value="0">Ok</option>
                         <option value="1">Bannir</option>
                     </select>
                     <input class="btn" type="submit" name="submit" value="Valider">
-                </form>
+                
                 <?php } ?>
-
-            </li>
            
                
         
     
+        </form>
     <?php
+}else{
+    echo "<p>Vous ne disposez pas des droits nécessaires pour accéder à cette page.</p>";
 } ?>
 
-</ul>
