@@ -78,8 +78,6 @@ body {
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
   background-color: #000;
   color: #fff;
 }
@@ -130,6 +128,7 @@ form {
 input, select, textarea {
   border-radius: 10px;
   padding-left: 0.5rem;
+  margin: 0.5rem;
 }
 
 .btn {
@@ -145,7 +144,11 @@ input, select, textarea {
   background-color: #E85706;
 }
 
-.none {
+.block {
+  display: block;
+}
+
+.none-menu-ecran {
   display: none;
 }
 
@@ -153,14 +156,108 @@ input, select, textarea {
   display: block;
 }
 
+.none {
+  display: none;
+}
+
 .txt-right {
   text-align: right;
 }
 
+.animation {
+  animation: arrive 1s ease-in-out forwards;
+}
+
+@keyframes arrive {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.toggle-menu {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  z-index: 999;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 2px 2px 2px 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.line {
+  width: 100%;
+  height: 3px;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: transform 0.2s ease-out;
+  -webkit-transition: transform 0.2s ease-out;
+  -moz-transition: transform 0.2s ease-out;
+  -ms-transition: transform 0.2s ease-out;
+  -o-transition: transform 0.2s ease-out;
+}
+
+.toggle .line1 {
+  background-color: #000000;
+  transform: scale(0.9) rotateZ(-45deg) translate(-6px, 4px);
+}
+
+.toggle .line2 {
+  display: none;
+}
+
+.toggle .line3 {
+  background-color: #000000;
+  transform: scale(0.9) rotateZ(45deg) translate(-6px, -4px);
+}
+
+.toggle .toggle-menu {
+  background-color: white;
+}
+
+.nav-list {
+  position: fixed;
+  z-index: 98;
+  top: 0;
+  background: black;
+  width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  -webkit-clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+          clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  transition: 0.35s;
+}
+
+.toggle {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
 @media screen and (min-width: 750px) {
   .container {
-    min-width: 700px;
+    min-width: 650px;
     max-width: 1300px;
+  }
+  .none-menu-ecran {
+    display: block;
+  }
+  .none-small-ecran {
+    display: none;
   }
 }
 .search-form {

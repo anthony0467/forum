@@ -46,7 +46,7 @@ foreach($posts as $post ){
                 </div>
                 <p><?=$post->getTextPost() ?></p>
                 <div class="like-info">
-                    <p><a href="index.php?ctrl=forum&action=postLike&id=<?= $post->getId() ?>">J'aime <?= $post->getLikePost() ?></a>
+                    <p><a class="like-btn" href="index.php?ctrl=forum&action=postLike&id=<?= $post->getId() ?>">J'aime <?= $post->getLikePost() ?></a>
                     
                     <?php
                     
