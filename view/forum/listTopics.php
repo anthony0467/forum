@@ -8,7 +8,7 @@ $ListCategory = $result["data"]['category'];
 <h1>Liste topics</h1>
 
 <form class="search-form" action="index.php?ctrl=forum&action=topicSearch" method="POST">
-    <input type="search" name="search" minlength="2" placeholder="Rechercher un topic">
+    <input class="max-width-400" type="search" name="search" minlength="2" placeholder="Rechercher un topic">
     <input class="btn" type="submit" name="submit" value="Rechercher">
 </form>
 

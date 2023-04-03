@@ -41,7 +41,7 @@
 
 
                                 <a href="index.php?ctrl=forum&action=listCategory">Catégories</a>
-                                <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
+                                <a href="index.php?ctrl=forum&action=listTopics">La liste des topics</a>
                                 <a href="index.php?ctrl=security&action=profile"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser() ?></a>
                                 <a href="index.php?ctrl=security&action=userLogout">Déconnexion</a>
                             <?php
@@ -50,7 +50,7 @@
 
 
                                 <a href="index.php?ctrl=forum&action=listCategory">Catégories</a>
-                                <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
+                                <a href="index.php?ctrl=forum&action=listTopics">La liste des topics</a>
                                 <a href="index.php?ctrl=security&action=formLogin">Connexion</a>
                                 <a href="index.php?ctrl=security&action=register">Inscription</a>
                             <?php
@@ -77,7 +77,7 @@
 
 
                             <a href="index.php?ctrl=forum&action=listCategory">Catégories</a>
-                            <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
+                            <a href="index.php?ctrl=forum&action=listTopics">La liste des topics</a>
                             <a href="index.php?ctrl=security&action=profile"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser() ?></a>
                             <a href="index.php?ctrl=security&action=userLogout">Déconnexion</a>
                         <?php
@@ -86,7 +86,7 @@
 
 
                             <a href="index.php?ctrl=forum&action=listCategory">Catégories</a>
-                            <a href="index.php?ctrl=forum&action=listTopics">la liste des topics</a>
+                            <a href="index.php?ctrl=forum&action=listTopics">La liste des topics</a>
                             <a href="index.php?ctrl=security&action=formLogin">Connexion</a>
                             <a href="index.php?ctrl=security&action=register">Inscription</a>
                         <?php

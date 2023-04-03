@@ -32,7 +32,9 @@ foreach($users as $user ){
                         <option value="0">Ok</option>
                         <option value="1">Bannir</option>
                     </select>
-                    <input class="btn" type="submit" name="submit" value="Valider">
+                    <div class="txt-center">
+                        <input class="btn" type="submit" name="submit" value="Valider">
+                    </div>
                 
                 <?php } ?>
            
