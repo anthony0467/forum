@@ -11,6 +11,7 @@ use Model\Entities\Post;
 use Model\Managers\TopicManager;
 use Model\Managers\CategoryManager;
 use Model\Managers\PostManager;
+use Model\Managers\UserManager;
 
 class ForumController extends AbstractController implements ControllerInterface
 {
@@ -200,13 +201,13 @@ class ForumController extends AbstractController implements ControllerInterface
     $postManager = new PostManager();
     $post = $postManager->findOneById($id);
     $topicId = $post->getTopic()->getId();
-
+    $user = $post->getLikepost();
     // Vérifier si l'utilisateur est connecté
     if(isset($_SESSION['user'])){
 
         // Vérifier si l'utilisateur a déjà liké ce post
         $userId = $_SESSION['user']->getId();
-        if(isset($_SESSION['liked_posts'][$userId]) && in_array($id, $_SESSION['liked_posts'][$userId])){
+        if(isset($user)){
             $_SESSION['error']="Vous avez déjà mis un j'aime pour ce post.";
         }else{
             $postManager->likePost($id);
@@ -319,7 +320,7 @@ class ForumController extends AbstractController implements ControllerInterface
     { // ajouter un post
 
         $postManager = new PostManager();
-
+        $userManager = new UserManager();
 
 
         if (isset($_POST['submit'])) {

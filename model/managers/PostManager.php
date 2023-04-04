@@ -9,6 +9,8 @@
 
         protected $className = "Model\Entities\Post";
         protected $tableName = "post";
+        protected $className2 = "Model\Entities\Likepost";
+        protected $tableName2 = "likepost";
 
 
         public function __construct(){
@@ -34,12 +36,19 @@
         //Ajouter une nouveau post dans un topic
 
         public function addPost($id){
+
+
             $sql="INSERT INTO post (textPost)
             VALUES (:post)";
-            return $this-> getMultipleResults(
+
+           
+
+             $this-> getMultipleResults(
                 DAO::select($sql,['id'=>$id],true),
                 $this->className
             );
+
+            
 
             
         }
@@ -78,11 +87,18 @@
 
         // like post
             public function likePost($id){
+
+                $user = $this->findOneById($id)->getUser()->getId();
+
                 $sql = "UPDATE " . $this->tableName . "
                     SET likePost = likePost + 1
                     WHERE id_post = :id";
 
+                    $likePost = "INSERT INTO likepost ( user_id, post_id) VALUES (:user,:id)";
+
                 DAO::update($sql, ['id' => $id]);
+
+                return  DAO::select($likePost, ['user' => $user, 'id' => $id], false); 
             }
         
             // compter le nb de poste
