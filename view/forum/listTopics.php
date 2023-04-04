@@ -15,16 +15,22 @@ $ListCategory = $result["data"]['category'];
 <?php if (isset($_SESSION['user'])){  ?>
 
 <form class="topic-form" action="index.php?ctrl=forum&action=addTopicGeneral" method="POST">
-    <label for="">Titre : </label>
-    <input class="max-width-400" type="text" name="title" minlength="2" required >
-    <label for="">Catégorie : </label>
-    <select class="max-width-400" name="category_id" id="nameCategory">
-        <?php
-        foreach ($ListCategory as $category) { ?>
-            <option value="<?= $category->getId() ?>"><?= $category->getNameCategory() ?></option>
-        <?php
-        } ?>
-    </select>
+    <div class="flex-row">
+        <div>
+            <label for="">Titre : </label>
+            <input class="max-width-400" type="text" name="title" minlength="2" required >
+        </div>
+        <div>
+            <label for="">Catégorie : </label>
+            <select class="max-width-400" name="category_id" id="nameCategory">
+                <?php
+                foreach ($ListCategory as $category) { ?>
+                    <option value="<?= $category->getId() ?>"><?= $category->getNameCategory() ?></option>
+                <?php
+                } ?>
+            </select>
+        </div>
+    </div>
     <label for="">Message :</label>
     <textarea name="textPost" id="textPost"  rows="10" minlength="2"required placeholder="Message"></textarea>
     <div><input class="btn" name="submit" type="submit" value="Envoyer"></div>

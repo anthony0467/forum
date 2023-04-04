@@ -27,11 +27,12 @@ foreach($users as $user ){
             </ul>
             
                 
-                    <select name="statusBan" id="statusBan">
+                    <select class="txt-center" name="statusBan" id="statusBan">
                         <option disabled selected>Choisir</option>
                         <option value="0">Ok</option>
                         <option value="1">Bannir</option>
                     </select>
+                    
                     <div class="txt-center">
                         <input class="btn" type="submit" name="submit" value="Valider">
                     </div>

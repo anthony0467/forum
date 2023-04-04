@@ -66,6 +66,16 @@ class UserManager extends Manager
         DAO::update($sql, ['statusBan' => $ban,'id' => $id]);
     }
 
+
+    public function statusRole($id, $role)
+    {
+        $sql = "UPDATE " . $this->tableName . "
+                    SET status = :statusRole
+                    WHERE id_user = :id";
+
+        DAO::update($sql, ['statusRole' => $role,'id' => $id]);
+    }
+
    
 
 }

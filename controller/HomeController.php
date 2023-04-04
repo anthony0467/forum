@@ -38,7 +38,15 @@
         public function forumRules(){
             
             return [
-                "view" => VIEW_DIR."rules.php"
+                "view" => VIEW_DIR."home/rules.php"
+            ];
+        }
+
+
+        public function noticeLegale(){
+            
+            return [
+                "view" => VIEW_DIR."home/notice.php"
             ];
         }
 

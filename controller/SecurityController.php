@@ -177,4 +177,21 @@ class SecurityController extends AbstractController implements ControllerInterfa
     }
 
 
+    public function addRole($id){
+
+        if (isset($_POST['submit'])) {
+        
+        $role = filter_input(INPUT_POST, "statusRole", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $userManager = new UserManager();
+            $userManager->statusBan($id, $role);
+           
+            $this->redirectTo('security', 'users');
+        
+        $this->redirectTo('security', 'users');
+    }
+
+}
+
+
+
 }

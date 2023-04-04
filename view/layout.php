@@ -17,14 +17,16 @@
 
         <div id="mainpage">
             <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
-            <h3 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h3>
-            <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
+            <h4 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h4>
+            <h4 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h4>
             <header>
                 <nav>
                     <div class="container-nav">
                         <div id="nav-left">
-                            <a href="index.php">My Forum</a>
-                            <?php
+                            <a href="index.php">My Forum</a>   
+                        </div>
+                        <div id="nav-right" class="none-menu-ecran">
+                        <?php
                             if (App\Session::isAdmin()) {
                             ?>
                                 <a href="index.php?ctrl=security&action=users">Voir la liste des gens</a>
@@ -32,8 +34,6 @@
                             <?php
                             }
                             ?>
-                        </div>
-                        <div id="nav-right" class="none-menu-ecran">
                             <?php
 
                             if (App\Session::getUser()) {
@@ -69,7 +69,15 @@
                         <div class="line line2"></div>
                         <div class="line line3"></div>
                     </div>
-                    <div class="nav-list">
+                    <div class="nav-list"> 
+                    <?php
+                            if (App\Session::isAdmin()) {
+                            ?>
+                                <a href="index.php?ctrl=security&action=users">Voir la liste des gens</a>
+
+                            <?php
+                            }
+                            ?>
                         <?php
 
                         if (App\Session::getUser()) {
@@ -107,7 +115,7 @@
             </main>
         </div>
         <footer>
-            <p>&copy; 2020 - Forum AS - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
+            <p>&copy; 2020 - Forum AS - <a href="index.php?ctrl=home&action=forumRules">Règlement du forum</a> - <a href="index.php?ctrl=home&action=noticeLegale">Mentions légales</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
         </footer>
     </div>
