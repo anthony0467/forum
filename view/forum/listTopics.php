@@ -43,9 +43,10 @@ $ListCategory = $result["data"]['category'];
 <li class="topic-line visibility border">
         <p class="line-1">Titre du Topic</p>
         <p class="line-2">Catégorie</p>
-        <p class="line-3">Date</p>
+        <p class="line-3">Date création</p>
         <p>Messages</p>
         <p>Pseudo</p>
+        <p class="line-4">Dernier message</p>
         <?php
          if(App\Session::isAdmin() ){ ?>
             <p>Verrouiller</p>
@@ -75,10 +76,10 @@ $ListCategory = $result["data"]['category'];
             
                 <p class="line-3"><?= $topic->getDateCreationTopic() ?></p>
             <a href="index.php?ctrl=forum&action=listPosts&id=<?= $topic->getId() ?>">
-                <p class="line-4"><i class="fa-regular fa-message"></i> <?= $topic->getNbPosts() ?></p>
+                <p ><i class="fa-regular fa-message"></i> <?= $topic->getNbPosts() ?></p>
             </a>
                 <p class="line-5"><?= $topic->getUser()->getPseudo() ?></p>
-            
+                <p class="line-4"> <?= $topic->getLastDate()   ?></p>
 
             <?php if(App\Session::isAdmin()){ //verrouiller deverouiller topic ?> 
                 <a class="line-6" href="index.php?ctrl=forum&action=topicLocked&id=<?= $topic->getId() ?>"><i class="fa-solid fa-lock"></i></a>

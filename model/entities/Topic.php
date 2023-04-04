@@ -12,6 +12,7 @@
         private $dateCreationTopic;
         private $locked;
         private $nbPosts;
+        private $lastDate;
         
 
         public function __construct($data){         
@@ -149,6 +150,27 @@
         public function setNbPosts($nbPosts)
         {
                 $this->nbPosts = $nbPosts;
+
+                return $this;
+        }
+
+
+        /**
+         * Get the value of lastDate
+         */ 
+        public function getLastDate()
+        {
+                return $this->lastDate;
+        }
+
+        /**
+         * Set the value of lastDate
+         *
+         * @return  self
+         */ 
+        public function setLastDate($lastDate)
+        {
+                $this->lastDate = $lastDate;
 
                 return $this;
         }

@@ -33,11 +33,12 @@ $listCategory = $result["data"]['category'];
 
 <ul class="topic-placement">
     <li class="topic-line visibility border">
-        <p class="line-1">Titre du Topic</p>
+    <p class="line-1">Titre du Topic</p>
         <p class="line-2">Catégorie</p>
-        <p class="line-3">Date</p>
+        <p class="line-3">Date création</p>
         <p>Messages</p>
         <p>Pseudo</p>
+        <p class="line-4">Dernier message</p>
         <?php
          if(App\Session::isAdmin() ){ ?>
             <p>Verrouiller</p>
@@ -63,10 +64,12 @@ foreach($topics as $topic ){
         </a>
             <p class="line-2" ><?= $topic->getCategory()->getNameCategory() ?></p>
             <p class="line-3" ><?= $topic->getDateCreationTopic() ?></p>
-            <p class="line-4" ><?= $topic->getUser()->getPseudo() ?></p>
             <a href="index.php?ctrl=forum&action=listPosts&id=<?= $topic->getId() ?>">
                 <p><i class="fa-regular fa-message"></i> <?= $topic->getNbPosts() ?></p>
             </a>
+            <p><?= $topic->getUser()->getPseudo() ?></p>
+            <p class="line-4"><?= $topic->getLastDate()   ?></p>
+            
                 <?php if(App\Session::isAdmin() ){  // verrouiller deverouiller topic ?>
                 <a href="index.php?ctrl=forum&action=topicLocked&id=<?= $topic->getId() ?>"><i class="fa-solid fa-lock"></i></a>
                 <a href="index.php?ctrl=forum&action=topicUnlocked&id=<?= $topic->getId() ?>"><i class="fa-solid fa-unlock"></i></a>

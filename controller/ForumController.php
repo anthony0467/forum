@@ -279,6 +279,8 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
 
+
+
     // supprimer un post
     public function postDelete($id){
         if(isset($_SESSION['user'])){

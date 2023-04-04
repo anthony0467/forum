@@ -8,11 +8,13 @@ $topics = $result["data"]['topics'];
 <h1>Posts Topic</h1>
 
 
+
 <?php 
 
 if ($topics && !$topics->getLocked()){
     if(isset($_SESSION['user'])){
      ?>
+  
   
 
 <form class="post-form" action="index.php?ctrl=forum&action=addPost&id=<?= $topics->getId() ?>" method="POST">

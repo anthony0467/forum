@@ -17,9 +17,9 @@ foreach($users as $user ){
                 <li class="user-placement">
                     <p><?= $user->getPseudo() ?></p>
                     <p>Status : <?php if( $user->getStatus() == 0){
-                    echo 'ok';
+                    echo 'ok <i class="green fa-solid fa-check"></i>';
                 }else{
-                    echo 'Banni';
+                    echo 'Banni <i class="red fa-sharp fa-solid fa-skull-crossbones"></i>';
                 } ?></p>
                     <p><?= $user->getDateCreationMember() ?></p>
 
