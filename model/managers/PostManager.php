@@ -57,6 +57,7 @@
                     ";
 
             DAO::delete($sql, ['id' => $id]); 
+
             $countPost = "SELECT  COUNT(*) AS nbPoste
             FROM ".$this->tableName."
             WHERE topic_id = :id";
@@ -65,7 +66,7 @@
           
 
            $nbPost =  DAO::select($countPost, ['id' => $topicId], false); 
-            if(intVal($nbPost['nbPoste'] == 0)){
+            if(intVal($nbPost['nbPoste'] == 0)){ // si nombre de poste = 0 supprimer le topic
                 $topicManager = new TopicManager();
                 $topicManager->deleteTopic($topicId, $nbPost);
             }

@@ -1,7 +1,8 @@
 <?php
 
 $posts = $result["data"]['posts'];
-$topics = $result["data"]['topics']; 
+$topics = $result["data"]['topics'];
+ 
 ?>
 
 

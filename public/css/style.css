@@ -46,7 +46,6 @@ h1 {
   font-size: 30px;
   margin: 1rem 0;
   padding: 0.5rem;
-  background-color: #1E0F37;
   border-radius: 10px;
 }
 
@@ -61,13 +60,13 @@ h3 {
 }
 
 a {
-  color: #fff;
+  color: #000;
   text-decoration: none;
   transition: 0.35s;
 }
 
 a:hover {
-  color: #E85706;
+  color: #1E0F37;
 }
 
 p, a {
@@ -79,8 +78,18 @@ body {
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  background-color: #000;
+  background-color: #afa7b4;
+  color: #000;
+}
+
+.logo {
   color: #fff;
+  transition: 0.35s ease-in-out;
+}
+
+.logo:hover {
+  color: #fff;
+  font-size: 33px;
 }
 
 .container-nav {
@@ -95,7 +104,7 @@ body {
 }
 
 #nav-right {
-  background-color: #000;
+  background-color: #afa7b4;
   padding: 1rem;
 }
 
@@ -114,18 +123,17 @@ main {
 
 .container {
   border-radius: 10px;
-  background-color: #000;
+  background-color: #afa7b4;
   padding: 1rem;
   margin: 1rem;
 }
 
 footer {
-  background-color: #000;
+  background-color: #afa7b4;
   padding: 1.5rem;
 }
 
 form {
-  background: #1E0F37;
   border-radius: 10px;
   padding: 1rem;
   margin: 1rem 0;
@@ -144,16 +152,18 @@ textarea {
 
 .btn {
   cursor: pointer;
-  background-color: #000;
+  background-color: #afa7b4;
   border-radius: 10px;
-  color: #fff;
+  color: #000;
   padding: 0.5rem 1.5rem;
   transition: 0.35s;
   max-width: 150px;
+  border: 1px solid;
 }
 
 .btn:hover {
-  background-color: #E85706;
+  background-color: #1E0F37;
+  color: #fff;
 }
 
 .block {
@@ -194,7 +204,7 @@ textarea {
   color: red;
 }
 
-.green{
+.green {
   color: green;
 }
 
@@ -278,10 +288,10 @@ textarea {
           clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 785px) {
   .container {
     min-width: 650px;
-    max-width: 1300px;
+    max-width: 1500px;
     padding: 1.5rem;
     margin: 2rem;
   }
@@ -294,6 +304,9 @@ textarea {
 }
 .search-form {
   margin: 1.5rem 0;
+  border-bottom: 1px dashed #1E0F37;
+  border-top: 1px dashed #1E0F37;
+  border-radius: 0;
 }
 
 .topic-form {
@@ -357,7 +370,7 @@ textarea {
     display: grid;
   }
   .border {
-    border-color: #E85706;
+    border-color: #1E0F37;
   }
 }
 .category-placement * {
@@ -404,6 +417,7 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background: none;
 }
 
 .post-placement {

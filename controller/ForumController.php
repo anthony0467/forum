@@ -21,6 +21,7 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
 
+    //liste general des topics
     public function listTopics($id){
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
@@ -35,7 +36,7 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
-
+    // liste des categories
     public function listCategory()
     {
 
@@ -49,6 +50,7 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
+    //liste des posts
     public function listPosts($id)
     {
         $postManager = new PostManager();
@@ -69,7 +71,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
     }
 
-
+    //liste des topics par categorie
     public function listTopicsByCategory($id)
     {
 
@@ -108,12 +110,13 @@ class ForumController extends AbstractController implements ControllerInterface
                     $_SESSION['sucess_message'] =  "Topic envoyé avec succes.";
                     $this->redirectTo('forum', 'listTopicsByCategory', $id); // redirection vers la page concerné
                 }
-            } else {
+            } else { // si pas connecté
                 $_SESSION['error_message'] =  "Vous devez être connecté pour faire ça.";
                 $this->redirectTo('forum', 'listTopicsByCategory', $id);
             }
         }
     }
+
 
     public function topicDelete($id){ // supprimer un topic par categorie
         if(isset($_SESSION['user'])){ // si la session existe
@@ -128,7 +131,7 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
     public function topicDeleteGeneral($id){ // supprimer un topic sur la liste entiere
-        if(isset($_SESSION['user'])){
+        if(isset($_SESSION['user'])){ // si la session existe
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
         $categoryId = $topic->getCategory()->getId();
@@ -140,7 +143,7 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
 
-
+    //recherché un topic 
     public function topicSearch(){
         $topicManager= new TopicManager();
         $categoryManager = new CategoryManager();
@@ -170,7 +173,7 @@ class ForumController extends AbstractController implements ControllerInterface
     // verouiller le topic
     public function topicLocked($id)
     {
-        if(isset($_SESSION['user'])){
+        if(isset($_SESSION['user'])){  // si la session existe
         $topicManager = new TopicManager();
         $topicManager->lock($id);
         $this->redirectTo('forum', 'listPosts', $id);
@@ -182,7 +185,7 @@ class ForumController extends AbstractController implements ControllerInterface
     // Déverouiller le topic
     public function topicUnlocked($id)
     {
-        if(isset($_SESSION['user'])){
+        if(isset($_SESSION['user'])){  // si la session existe
         $topicManager = new TopicManager();
         $topicManager->unlock($id);
         $this->redirectTo('forum', 'listPosts', $id);
@@ -261,6 +264,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
     }
 
+    //nombre de post
     public function postCount($id){
             $postManager = new PostManager();
             $topicManager = new TopicManager();
@@ -294,9 +298,9 @@ class ForumController extends AbstractController implements ControllerInterface
        
       
 
-        $nbPoste = intVal($count);
-        var_dump($nbPoste);
-        if($nbPoste > 0){
+        $nbPoste = intVal($count); // récupérér la valeur en int
+        
+        if($nbPoste > 0){ 
             $this->redirectTo('forum', 'listPosts', $topicId);
         }else{
             $this->redirectTo('forum', 'listCategory');
@@ -310,6 +314,7 @@ class ForumController extends AbstractController implements ControllerInterface
 
     }
 
+    
     public function addPost($id)
     { // ajouter un post
 

@@ -23,7 +23,7 @@
                 <nav>
                     <div class="container-nav">
                         <div id="nav-left">
-                            <a href="index.php">My Forum</a>   
+                            <a class="logo" href="index.php">My Forum</a>   
                         </div>
                         <div id="nav-right" class="none-menu-ecran">
                         <?php
@@ -115,7 +115,7 @@
             </main>
         </div>
         <footer>
-            <p>&copy; 2020 - Forum AS - <a href="index.php?ctrl=home&action=forumRules">Règlement du forum</a> - <a href="index.php?ctrl=home&action=noticeLegale">Mentions légales</a></p>
+            <p>&copy; 2023 - Forum AS - <a href="index.php?ctrl=home&action=forumRules">Règlement du forum</a> - <a href="index.php?ctrl=home&action=noticeLegale">Mentions légales</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
         </footer>
     </div>
